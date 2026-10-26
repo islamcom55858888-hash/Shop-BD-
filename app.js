@@ -2124,7 +2124,7 @@ async function initializeShopBD() {
 /* =========================================================
    42. START APPLICATION
 ========================================================= */
-
+console.log("Firebase status:", firebaseReady);
 initializeShopBD()
   .catch(error => {
 
