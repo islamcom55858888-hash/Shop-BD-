@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f766e">
+  <meta name="description" content="ShopBD — অনলাইনে সহজে পছন্দের পণ্য অর্ডার করুন।">
+  <title>ShopBD | অনলাইন শপ</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#" class="brand" aria-label="ShopBD হোম">
+        <span class="brand-icon">S</span>
+        <span>Shop<span class="brand-highlight">BD</span></span>
+      </a>
+
+      <button
+        type="button"
+        id="cartToggle"
+        class="cart-toggle"
+        aria-label="শপিং কার্ট খুলুন"
+      >
+        🛒 কার্ট
+        <span id="cartCount" class="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Hero -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <p class="hero-tag">স্বাগতম ShopBD-তে</p>
+        <h1>আপনার পছন্দের পণ্য, এখন হাতের মুঠোয়</h1>
+        <p>পণ্য বেছে নিন, কার্টে যোগ করুন এবং সহজেই অর্ডার করুন।</p>
+
+        <a href="#productsSection" class="hero-button">
+          পণ্য দেখুন ↓
+        </a>
+      </div>
+    </section>
+
+    <!-- Search -->
+    <section class="search-section" aria-label="পণ্য খুঁজুন">
+      <label for="searchInput" class="section-label">পণ্য খুঁজুন</label>
+
+      <div class="search-box">
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="পণ্যের নাম লিখুন..."
+          autocomplete="off"
+        >
+        <button type="button" id="searchButton">খুঁজুন</button>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories-section">
+      <h2 class="section-title">ক্যাটাগরি</h2>
+
+      <div id="categoryList" class="category-list">
+        <button
+          type="button"
+          class="category-btn active"
+          data-category="all"
+        >
+          সব পণ্য
+        </button>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section
+      id="productsSection"
+      class="products-section"
+    >
+      <div class="section-heading">
+        <div>
+          <h2 class="section-title">আমাদের পণ্য</h2>
+          <p class="section-subtitle">আপনার পছন্দের পণ্য বেছে নিন</p>
+        </div>
+      </div>
+
+      <div id="productsGrid" class="products-grid">
+        <p class="loading-message">পণ্য লোড হচ্ছে...</p>
+      </div>
+
+      <p
+        id="productsEmpty"
+        class="empty-message"
+        hidden
+      >
+        কোনো পণ্য পাওয়া যায়নি।
+      </p>
+    </section>
+
+    <!-- Cart -->
+    <section id="cartSection" class="cart-section">
+      <div class="section-heading">
+        <h2 class="section-title">🛒 আপনার শপিং কার্ট</h2>
+
+        <button
+          type="button"
+          id="closeCartButton"
+          class="text-button"
+        >
+          বন্ধ করুন ✕
+        </button>
+      </div>
+
+      <div id="cartItems" class="cart-items">
+        <p class="empty-cart-message">আপনার কার্ট এখন খালি।</p>
+      </div>
+
+      <div class="cart-summary">
+        <div class="summary-row">
+          <span>পণ্যের মোট মূল্য</span>
+          <span id="cartSubtotal">৳০</span>
+        </div>
+
+        <div class="summary-row">
+          <span>ডেলিভারি চার্জ</span>
+          <span id="deliveryCharge">৳০</span>
+        </div>
+
+        <div class="summary-row total-row">
+          <strong>সর্বমোট</strong>
+          <strong id="cartTotal">৳০</strong>
+        </div>
+
+        <button
+          type="button"
+          id="checkoutButton"
+          class="primary-button"
+          disabled
+        >
+          অর্ডার করতে এগিয়ে যান
+        </button>
+
+        <button
+          type="button"
+          id="clearCartButton"
+          class="secondary-button"
+        >
+          কার্ট খালি করুন
+        </button>
+      </div>
+    </section>
+
+    <!-- Checkout -->
+    <section id="checkoutSection" class="checkout-section">
+      <div class="section-heading">
+        <h2 class="section-title">অর্ডারের তথ্য</h2>
+
+        <button
+          type="button"
+          id="backToCartButton"
+          class="text-button"
+        >
+          ← কার্টে ফিরুন
+        </button>
+      </div>
+
+      <form id="checkoutForm">
+        <div class="form-group">
+          <label for="customerName">আপনার নাম *</label>
+          <input
+            type="text"
+            id="customerName"
+            name="customerName"
+            placeholder="সম্পূর্ণ নাম লিখুন"
+            autocomplete="name"
+            required
+            minlength="2"
+            maxlength="100"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="customerPhone">মোবাইল নম্বর *</label>
+          <input
+            type="tel"
+            id="customerPhone"
+            name="customerPhone"
+            placeholder="01XXXXXXXXX"
+            autocomplete="tel"
+            inputmode="tel"
+            pattern="01[3-9][0-9]{8}"
+            title="সঠিক ১১ সংখ্যার বাংলাদেশি মোবাইল নম্বর লিখুন"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="customerAddress">সম্পূর্ণ ঠিকানা *</label>
+          <textarea
+            id="customerAddress"
+            name="customerAddress"
+            placeholder="বাড়ি, রোড, এলাকা, উপজেলা ও জেলা লিখুন"
+            autocomplete="street-address"
+            rows="3"
+            required
+            minlength="5"
+            maxlength="500"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="customerNote">অতিরিক্ত নির্দেশনা (ঐচ্ছিক)</label>
+          <textarea
+            id="customerNote"
+            name="customerNote"
+            placeholder="অর্ডার সম্পর্কে কোনো নির্দেশনা থাকলে লিখুন"
+            rows="2"
+            maxlength="500"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="paymentMethod">পেমেন্ট পদ্ধতি *</label>
+          <select
+            id="paymentMethod"
+            name="paymentMethod"
+            required
+          >
+            <option value="">পেমেন্ট পদ্ধতি বেছে নিন</option>
+            <option value="cod">ক্যাশ অন ডেলিভারি</option>
+            <option value="bkash">bKash</option>
+            <option value="nagad">Nagad</option>
+          </select>
+        </div>
+
+        <!-- Mobile payment instructions -->
+        <div id="paymentInstructions" class="payment-instructions" hidden>
+          <h3>পেমেন্ট নির্দেশনা</h3>
+          <p id="paymentMessage">
+            নির্বাচিত পদ্ধতির নির্দেশনা এখানে দেখানো হবে।
+          </p>
+        </div>
+
+        <div class="form-group" id="transactionGroup" hidden>
+          <label for="transactionId">ট্রানজেকশন আইডি</label>
+          <input
+            type="text"
+            id="transactionId"
+            name="transactionId"
+            placeholder="পেমেন্ট করলে ট্রানজেকশন আইডি লিখুন"
+            maxlength="100"
+          >
+          <small>প্রযোজ্য হলে পেমেন্টের ট্রানজেকশন আইডি দিন।</small>
+        </div>
+
+        <div class="checkout-total">
+          <span>অর্ডারের সর্বমোট</span>
+          <strong id="checkoutTotal">৳০</strong>
+        </div>
+
+        <button
+          type="submit"
+          id="placeOrderButton"
+          class="primary-button"
+        >
+          অর্ডার নিশ্চিত করুন
+        </button>
+
+        <p class="form-disclaimer">
+          অর্ডার পাঠানোর আগে আপনার নাম, ফোন ও ঠিকানা যাচাই করুন।
+        </p>
+
+        <div
+          id="orderStatus"
+          class="order-status"
+          role="status"
+          aria-live="polite"
+        ></div>
+      </form>
+    </section>
+
+    <!-- Help and Payment -->
+    <section id="helpSection" class="help-section">
+      <h2 class="section-title">পেমেন্ট ও কাস্টমার সাপোর্ট</h2>
+
+      <div class="help-card">
+        <h3>bKash</h3>
+        <p>পেমেন্ট নম্বর: <a href="tel:01881555158">01881555158</a></p>
+      </div>
+
+      <div class="help-card">
+        <h3>Nagad</h3>
+        <p>পেমেন্ট নম্বর: <a href="tel:01881555188">01881555188</a></p>
+      </div>
+
+      <div class="help-card">
+        <h3>কাস্টমার হেল্প সেন্টার</h3>
+        <p>
+          <a href="tel:01493092974">01493092974</a>
+        </p>
+      </div>
+
+      <p class="help-note">
+        পেমেন্ট করার আগে নম্বর ও পেমেন্টের ধরন নিশ্চিত করুন।
+        ট্রানজেকশন আইডি দিলেই পেমেন্ট স্বয়ংক্রিয়ভাবে যাচাই হয় না।
+      </p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <a href="#" class="footer-brand">ShopBD</a>
+    <p>আপনার অনলাইন কেনাকাটার বিশ্বস্ত ঠিকানা।</p>
+    <p>© <span id="currentYear">2026</span> ShopBD. সর্বস্বত্ব সংরক্ষিত।</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
